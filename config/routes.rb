@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   get "pricing", to: "welcome#pricing", as: "pricing"
   get "training", to: "welcome#training", as: "training"
   get "faq", to: "welcome#faq", as: "faq"
-  get "graduation_works", to: "welcome#graduation_works", as: "graduation_works"
-  get "graduation_works/:id", to: "welcome#graduation_works_show"
   get "tos", to: "welcome#tos", as: "tos"
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
@@ -161,7 +159,7 @@ Rails.application.routes.draw do
     end
   end
   resources :works, except: %i(index)
-
+  resources :graduation_works
   resources :questions, only: %i(index show new create destroy)
   resources :courses, only: :index
 
