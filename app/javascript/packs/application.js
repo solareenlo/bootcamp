@@ -53,8 +53,5 @@ require('../user_mentor_memo.js')
 require('../mentor-mode.js')
 require('../bookmark.js')
 require('../bookmarks.js')
-<<<<<<< HEAD
 require('../events.js')
-=======
 require('../user-recent-reports.js')
->>>>>>> 9388b18b6... モジュールの追加
