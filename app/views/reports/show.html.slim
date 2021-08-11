@@ -104,13 +104,8 @@ header.page-header
                           span#delete
                             | 削除する
 
-<<<<<<< HEAD
         - if staff_login?
           #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
-=======
-            - if admin_login? || adviser_login?
-              #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
->>>>>>> eb3da053a... 日報横の直近の日報にデザイン
 
           .thread-prev-next
             .thread-prev-next__item
