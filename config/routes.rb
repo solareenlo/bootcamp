@@ -43,7 +43,9 @@ Rails.application.routes.draw do
     resources :user_icon_urls, only: %i(index)
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
     resources :practices, only: %i(index show update) do
-      resource :learning, only: %i(show update), controller: "practices/learning"
+      resource :learning, only: %i(show update), controller: "practices/learning" do
+        resource :completion_message, only: %i(update), controller: "practices/learning/completion_message"
+      end
     end
     resources :reports, only: %i(index)
     namespace "reports" do
@@ -142,6 +144,7 @@ Rails.application.routes.draw do
     resources :questions, only: %i(index), controller: "practices/questions"
     resources :products, only: %i(index), controller: "practices/products"
     resources :pages, only: %i(index), controller: "practices/pages"
+    resource :completion, only: %i(show), controller: "practices/completion"
   end
   namespace :products do
     resources :unchecked, only: %i(index)
