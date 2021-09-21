@@ -21,7 +21,7 @@
       .o-empty-message
         p.o-empty-message__text
         | ブックマークしているものはありません。
-    nav.pagination(v-if='totalPages > 1')
+    nav.o-pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .thread-list.a-card
       .thread-list__items
@@ -32,7 +32,7 @@
           :checked='checked',
           @updateIndex='updateIndex'
         )
-    nav.pagination(v-if='totalPages > 1')
+    nav.o-pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>
 <script>

@@ -169,6 +169,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
       )
     end
     visit '/admin/users?target=all'
-    assert_selector 'nav.pagination', count: 2
+    assert_selector 'nav.o-pagination', count: 2
   end
 end
