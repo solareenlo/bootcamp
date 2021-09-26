@@ -12,6 +12,7 @@ class HomeController < ApplicationController
 
         users = User.with_attached_avatar
         @job_seeking_users = users.includes(:course, :works, :products, :reports, :company).job_seeking
+        @depressed_reports = User.depressed_reports(users.students_and_trainees)
         @inactive_students = users.inactive_students_and_trainees.order(updated_at: :desc)
 
         cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
