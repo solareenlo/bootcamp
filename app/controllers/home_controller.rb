@@ -9,15 +9,10 @@ class HomeController < ApplicationController
       else
         @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(5)
         @completed_learnings = current_user.learnings.includes(:practice).where(status: 3).order(updated_at: :desc)
-
-        users = User.with_attached_avatar
-        @job_seeking_users = users.includes(:course, :works, :products, :reports, :company).job_seeking
-        @depressed_reports = User.depressed_reports(users.students_and_trainees)
-        @inactive_students = users.inactive_students_and_trainees.order(updated_at: :desc)
-
         cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
         @events_coming_soon = Event.where(start_at: Date.current).or(Event.where(start_at: Date.tomorrow)).where.not(id: cookies_ids)
 
+        set_users_and_reports
         set_required_fields
         render aciton: :index
       end
@@ -38,5 +33,12 @@ class HomeController < ApplicationController
       github_account: current_user.github_account,
       discord_account: current_user.discord_account
     )
+  end
+
+  def set_users_and_reports
+    users = User.with_attached_avatar
+    @job_seeking_users = users.includes(:course, :works, :products, :reports, :company).job_seeking
+    @depressed_reports = User.depressed_reports(users.students_and_trainees)
+    @inactive_students = users.inactive_students_and_trainees.order(updated_at: :desc)
   end
 end
