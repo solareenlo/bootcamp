@@ -7,14 +7,16 @@ class HomeController < ApplicationController
         logout
         redirect_to retire_path
       else
-        @announcements = Announcement.with_avatar
-                                     .where(wip: false)
-                                     .order(published_at: :desc)
-                                     .limit(5)
-        @completed_learnings = current_user.learnings.where(status: 3).order(updated_at: :desc)
-        @inactive_students = User.inactive_students_and_trainees.order(updated_at: :desc)
+        @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(5)
+        @completed_learnings = current_user.learnings.includes(:practice).where(status: 3).order(updated_at: :desc)
+
+        users = User.with_attached_avatar
+        @job_seeking_users = users.includes(:course, :works, :products, :reports, :company).job_seeking
+        @inactive_students = users.inactive_students_and_trainees.order(updated_at: :desc)
+
         cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
         @events_coming_soon = Event.where(start_at: Date.current).or(Event.where(start_at: Date.tomorrow)).where.not(id: cookies_ids)
+
         set_required_fields
         render aciton: :index
       end
