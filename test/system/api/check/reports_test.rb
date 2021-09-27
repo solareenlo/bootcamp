@@ -26,8 +26,8 @@ class Check::ReportsTest < ApplicationSystemTestCase
     visit_with_auth '/', 'advijirou'
     assert_equal '/', current_path
     click_link '日報'
-    assert_text '作業週2日目'
-    click_link '作業週2日目'
+    assert_text '今日は頑張りました'
+    click_link '今日は頑張りました'
     assert has_button? '日報を確認'
     click_button '日報を確認'
     assert has_button? '日報の確認を取り消す'
